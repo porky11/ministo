@@ -1,3 +1,7 @@
+//! A crate for Random X mining.
+
+#![deny(missing_docs)]
+
 mod job;
 mod share;
 mod stratum;
@@ -12,15 +16,22 @@ use std::{
 
 const KEEP_ALIVE_INTERVAL: Duration = Duration::from_secs(60);
 
+/// The miner contains all the mining info.
 pub struct Miner {
+    /// The mining pool URL including the port.
     pub url: String,
+    /// The wallet address.
     pub user: String,
+    /// The worker name.
     pub pass: String,
+    /// The number of CPU threads.
     pub threads: NonZeroUsize,
+    /// Switch to light mode.
     pub light: bool,
 }
 
 impl Miner {
+    /// Runs the miner using the specified settnigs.
     pub fn run(&self) -> io::Result<()> {
         tracing_subscriber::fmt()
             .pretty()
